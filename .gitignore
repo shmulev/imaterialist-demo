@@ -1,0 +1,9 @@
+.ipynb_checkpoints/
+bin/
+etc/
+include/
+lib/
+share/
+__pycache__/
+.idea/
+experiments/
