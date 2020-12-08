@@ -7,3 +7,4 @@ share/
 __pycache__/
 .idea/
 experiments/
+predict/__pycache__/

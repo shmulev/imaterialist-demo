@@ -3,6 +3,24 @@ import matplotlib.pyplot as plt
 import torch
 import torch.onnx
 import torch.onnx.symbolic_opset9 as onnx_symbolic
+import segmentation_models_pytorch as smp
+from preprocessing import get_preprocessing
+from predict import predict_mask
+
+
+DEVICE = 'cuda'
+
+# predict function
+def predict_mask_from_raw(image_numpy, model, activation=None, device=DEVICE):
+    ENCODER = 'resnext50_32x4d'
+    ENCODER_WEIGHTS = 'imagenet'
+    preprocessing_fn = smp.encoders.get_preprocessing_fn(ENCODER, ENCODER_WEIGHTS)
+    preprocessing = get_preprocessing(preprocessing_fn)
+    img_p = preprocessing(image=image_numpy)['image']
+    pr_mask = predict_mask(img_p, model, activation=activation, device=device)
+    
+    return pr_mask
+
 
 # helper function for data visualization
 def visualize(**images):
